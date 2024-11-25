@@ -871,11 +871,58 @@ func (x *fastReflection_MsgUpdateParamsResponse) ProtoMethods() *protoiface.Meth
 	}
 }
 
+var _ protoreflect.List = (*_MsgCreatePost_4_list)(nil)
+
+type _MsgCreatePost_4_list struct {
+	list *[]string
+}
+
+func (x *_MsgCreatePost_4_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_MsgCreatePost_4_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfString((*x.list)[i])
+}
+
+func (x *_MsgCreatePost_4_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_MsgCreatePost_4_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_MsgCreatePost_4_list) AppendMutable() protoreflect.Value {
+	panic(fmt.Errorf("AppendMutable can not be called on message MsgCreatePost at list field Editors as it is not of Message kind"))
+}
+
+func (x *_MsgCreatePost_4_list) Truncate(n int) {
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_MsgCreatePost_4_list) NewElement() protoreflect.Value {
+	v := ""
+	return protoreflect.ValueOfString(v)
+}
+
+func (x *_MsgCreatePost_4_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
 	md_MsgCreatePost         protoreflect.MessageDescriptor
 	fd_MsgCreatePost_creator protoreflect.FieldDescriptor
 	fd_MsgCreatePost_title   protoreflect.FieldDescriptor
 	fd_MsgCreatePost_body    protoreflect.FieldDescriptor
+	fd_MsgCreatePost_editors protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -884,6 +931,7 @@ func init() {
 	fd_MsgCreatePost_creator = md_MsgCreatePost.Fields().ByName("creator")
 	fd_MsgCreatePost_title = md_MsgCreatePost.Fields().ByName("title")
 	fd_MsgCreatePost_body = md_MsgCreatePost.Fields().ByName("body")
+	fd_MsgCreatePost_editors = md_MsgCreatePost.Fields().ByName("editors")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgCreatePost)(nil)
@@ -969,6 +1017,12 @@ func (x *fastReflection_MsgCreatePost) Range(f func(protoreflect.FieldDescriptor
 			return
 		}
 	}
+	if len(x.Editors) != 0 {
+		value := protoreflect.ValueOfList(&_MsgCreatePost_4_list{list: &x.Editors})
+		if !f(fd_MsgCreatePost_editors, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -990,6 +1044,8 @@ func (x *fastReflection_MsgCreatePost) Has(fd protoreflect.FieldDescriptor) bool
 		return x.Title != ""
 	case "blog.blog.MsgCreatePost.body":
 		return x.Body != ""
+	case "blog.blog.MsgCreatePost.editors":
+		return len(x.Editors) != 0
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgCreatePost"))
@@ -1012,6 +1068,8 @@ func (x *fastReflection_MsgCreatePost) Clear(fd protoreflect.FieldDescriptor) {
 		x.Title = ""
 	case "blog.blog.MsgCreatePost.body":
 		x.Body = ""
+	case "blog.blog.MsgCreatePost.editors":
+		x.Editors = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgCreatePost"))
@@ -1037,6 +1095,12 @@ func (x *fastReflection_MsgCreatePost) Get(descriptor protoreflect.FieldDescript
 	case "blog.blog.MsgCreatePost.body":
 		value := x.Body
 		return protoreflect.ValueOfString(value)
+	case "blog.blog.MsgCreatePost.editors":
+		if len(x.Editors) == 0 {
+			return protoreflect.ValueOfList(&_MsgCreatePost_4_list{})
+		}
+		listValue := &_MsgCreatePost_4_list{list: &x.Editors}
+		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgCreatePost"))
@@ -1063,6 +1127,10 @@ func (x *fastReflection_MsgCreatePost) Set(fd protoreflect.FieldDescriptor, valu
 		x.Title = value.Interface().(string)
 	case "blog.blog.MsgCreatePost.body":
 		x.Body = value.Interface().(string)
+	case "blog.blog.MsgCreatePost.editors":
+		lv := value.List()
+		clv := lv.(*_MsgCreatePost_4_list)
+		x.Editors = *clv.list
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgCreatePost"))
@@ -1083,6 +1151,12 @@ func (x *fastReflection_MsgCreatePost) Set(fd protoreflect.FieldDescriptor, valu
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgCreatePost) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "blog.blog.MsgCreatePost.editors":
+		if x.Editors == nil {
+			x.Editors = []string{}
+		}
+		value := &_MsgCreatePost_4_list{list: &x.Editors}
+		return protoreflect.ValueOfList(value)
 	case "blog.blog.MsgCreatePost.creator":
 		panic(fmt.Errorf("field creator of message blog.blog.MsgCreatePost is not mutable"))
 	case "blog.blog.MsgCreatePost.title":
@@ -1108,6 +1182,9 @@ func (x *fastReflection_MsgCreatePost) NewField(fd protoreflect.FieldDescriptor)
 		return protoreflect.ValueOfString("")
 	case "blog.blog.MsgCreatePost.body":
 		return protoreflect.ValueOfString("")
+	case "blog.blog.MsgCreatePost.editors":
+		list := []string{}
+		return protoreflect.ValueOfList(&_MsgCreatePost_4_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgCreatePost"))
@@ -1189,6 +1266,12 @@ func (x *fastReflection_MsgCreatePost) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
+		if len(x.Editors) > 0 {
+			for _, s := range x.Editors {
+				l = len(s)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -1217,6 +1300,15 @@ func (x *fastReflection_MsgCreatePost) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Editors) > 0 {
+			for iNdEx := len(x.Editors) - 1; iNdEx >= 0; iNdEx-- {
+				i -= len(x.Editors[iNdEx])
+				copy(dAtA[i:], x.Editors[iNdEx])
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Editors[iNdEx])))
+				i--
+				dAtA[i] = 0x22
+			}
 		}
 		if len(x.Body) > 0 {
 			i -= len(x.Body)
@@ -1383,6 +1475,38 @@ func (x *fastReflection_MsgCreatePost) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
 				x.Body = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 4:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Editors", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Editors = append(x.Editors, string(dAtA[iNdEx:postIndex]))
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -1823,12 +1947,59 @@ func (x *fastReflection_MsgCreatePostResponse) ProtoMethods() *protoiface.Method
 	}
 }
 
+var _ protoreflect.List = (*_MsgUpdatePost_5_list)(nil)
+
+type _MsgUpdatePost_5_list struct {
+	list *[]string
+}
+
+func (x *_MsgUpdatePost_5_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_MsgUpdatePost_5_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfString((*x.list)[i])
+}
+
+func (x *_MsgUpdatePost_5_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_MsgUpdatePost_5_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_MsgUpdatePost_5_list) AppendMutable() protoreflect.Value {
+	panic(fmt.Errorf("AppendMutable can not be called on message MsgUpdatePost at list field Editors as it is not of Message kind"))
+}
+
+func (x *_MsgUpdatePost_5_list) Truncate(n int) {
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_MsgUpdatePost_5_list) NewElement() protoreflect.Value {
+	v := ""
+	return protoreflect.ValueOfString(v)
+}
+
+func (x *_MsgUpdatePost_5_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
 	md_MsgUpdatePost         protoreflect.MessageDescriptor
 	fd_MsgUpdatePost_creator protoreflect.FieldDescriptor
 	fd_MsgUpdatePost_title   protoreflect.FieldDescriptor
 	fd_MsgUpdatePost_body    protoreflect.FieldDescriptor
 	fd_MsgUpdatePost_id      protoreflect.FieldDescriptor
+	fd_MsgUpdatePost_editors protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -1838,6 +2009,7 @@ func init() {
 	fd_MsgUpdatePost_title = md_MsgUpdatePost.Fields().ByName("title")
 	fd_MsgUpdatePost_body = md_MsgUpdatePost.Fields().ByName("body")
 	fd_MsgUpdatePost_id = md_MsgUpdatePost.Fields().ByName("id")
+	fd_MsgUpdatePost_editors = md_MsgUpdatePost.Fields().ByName("editors")
 }
 
 var _ protoreflect.Message = (*fastReflection_MsgUpdatePost)(nil)
@@ -1929,6 +2101,12 @@ func (x *fastReflection_MsgUpdatePost) Range(f func(protoreflect.FieldDescriptor
 			return
 		}
 	}
+	if len(x.Editors) != 0 {
+		value := protoreflect.ValueOfList(&_MsgUpdatePost_5_list{list: &x.Editors})
+		if !f(fd_MsgUpdatePost_editors, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -1952,6 +2130,8 @@ func (x *fastReflection_MsgUpdatePost) Has(fd protoreflect.FieldDescriptor) bool
 		return x.Body != ""
 	case "blog.blog.MsgUpdatePost.id":
 		return x.Id != uint64(0)
+	case "blog.blog.MsgUpdatePost.editors":
+		return len(x.Editors) != 0
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgUpdatePost"))
@@ -1976,6 +2156,8 @@ func (x *fastReflection_MsgUpdatePost) Clear(fd protoreflect.FieldDescriptor) {
 		x.Body = ""
 	case "blog.blog.MsgUpdatePost.id":
 		x.Id = uint64(0)
+	case "blog.blog.MsgUpdatePost.editors":
+		x.Editors = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgUpdatePost"))
@@ -2004,6 +2186,12 @@ func (x *fastReflection_MsgUpdatePost) Get(descriptor protoreflect.FieldDescript
 	case "blog.blog.MsgUpdatePost.id":
 		value := x.Id
 		return protoreflect.ValueOfUint64(value)
+	case "blog.blog.MsgUpdatePost.editors":
+		if len(x.Editors) == 0 {
+			return protoreflect.ValueOfList(&_MsgUpdatePost_5_list{})
+		}
+		listValue := &_MsgUpdatePost_5_list{list: &x.Editors}
+		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgUpdatePost"))
@@ -2032,6 +2220,10 @@ func (x *fastReflection_MsgUpdatePost) Set(fd protoreflect.FieldDescriptor, valu
 		x.Body = value.Interface().(string)
 	case "blog.blog.MsgUpdatePost.id":
 		x.Id = value.Uint()
+	case "blog.blog.MsgUpdatePost.editors":
+		lv := value.List()
+		clv := lv.(*_MsgUpdatePost_5_list)
+		x.Editors = *clv.list
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgUpdatePost"))
@@ -2052,6 +2244,12 @@ func (x *fastReflection_MsgUpdatePost) Set(fd protoreflect.FieldDescriptor, valu
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgUpdatePost) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "blog.blog.MsgUpdatePost.editors":
+		if x.Editors == nil {
+			x.Editors = []string{}
+		}
+		value := &_MsgUpdatePost_5_list{list: &x.Editors}
+		return protoreflect.ValueOfList(value)
 	case "blog.blog.MsgUpdatePost.creator":
 		panic(fmt.Errorf("field creator of message blog.blog.MsgUpdatePost is not mutable"))
 	case "blog.blog.MsgUpdatePost.title":
@@ -2081,6 +2279,9 @@ func (x *fastReflection_MsgUpdatePost) NewField(fd protoreflect.FieldDescriptor)
 		return protoreflect.ValueOfString("")
 	case "blog.blog.MsgUpdatePost.id":
 		return protoreflect.ValueOfUint64(uint64(0))
+	case "blog.blog.MsgUpdatePost.editors":
+		list := []string{}
+		return protoreflect.ValueOfList(&_MsgUpdatePost_5_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgUpdatePost"))
@@ -2165,6 +2366,12 @@ func (x *fastReflection_MsgUpdatePost) ProtoMethods() *protoiface.Methods {
 		if x.Id != 0 {
 			n += 1 + runtime.Sov(uint64(x.Id))
 		}
+		if len(x.Editors) > 0 {
+			for _, s := range x.Editors {
+				l = len(s)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -2193,6 +2400,15 @@ func (x *fastReflection_MsgUpdatePost) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Editors) > 0 {
+			for iNdEx := len(x.Editors) - 1; iNdEx >= 0; iNdEx-- {
+				i -= len(x.Editors[iNdEx])
+				copy(dAtA[i:], x.Editors[iNdEx])
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Editors[iNdEx])))
+				i--
+				dAtA[i] = 0x2a
+			}
 		}
 		if x.Id != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
@@ -2384,6 +2600,38 @@ func (x *fastReflection_MsgUpdatePost) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
+			case 5:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Editors", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Editors = append(x.Editors, string(dAtA[iNdEx:postIndex]))
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -3599,6 +3847,1782 @@ func (x *fastReflection_MsgDeletePostResponse) ProtoMethods() *protoiface.Method
 	}
 }
 
+var (
+	md_MsgAddEditor         protoreflect.MessageDescriptor
+	fd_MsgAddEditor_creator protoreflect.FieldDescriptor
+	fd_MsgAddEditor_id      protoreflect.FieldDescriptor
+	fd_MsgAddEditor_editor  protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_blog_blog_tx_proto_init()
+	md_MsgAddEditor = File_blog_blog_tx_proto.Messages().ByName("MsgAddEditor")
+	fd_MsgAddEditor_creator = md_MsgAddEditor.Fields().ByName("creator")
+	fd_MsgAddEditor_id = md_MsgAddEditor.Fields().ByName("id")
+	fd_MsgAddEditor_editor = md_MsgAddEditor.Fields().ByName("editor")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgAddEditor)(nil)
+
+type fastReflection_MsgAddEditor MsgAddEditor
+
+func (x *MsgAddEditor) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgAddEditor)(x)
+}
+
+func (x *MsgAddEditor) slowProtoReflect() protoreflect.Message {
+	mi := &file_blog_blog_tx_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgAddEditor_messageType fastReflection_MsgAddEditor_messageType
+var _ protoreflect.MessageType = fastReflection_MsgAddEditor_messageType{}
+
+type fastReflection_MsgAddEditor_messageType struct{}
+
+func (x fastReflection_MsgAddEditor_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgAddEditor)(nil)
+}
+func (x fastReflection_MsgAddEditor_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgAddEditor)
+}
+func (x fastReflection_MsgAddEditor_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgAddEditor
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgAddEditor) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgAddEditor
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgAddEditor) Type() protoreflect.MessageType {
+	return _fastReflection_MsgAddEditor_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgAddEditor) New() protoreflect.Message {
+	return new(fastReflection_MsgAddEditor)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgAddEditor) Interface() protoreflect.ProtoMessage {
+	return (*MsgAddEditor)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgAddEditor) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Creator != "" {
+		value := protoreflect.ValueOfString(x.Creator)
+		if !f(fd_MsgAddEditor_creator, value) {
+			return
+		}
+	}
+	if x.Id != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Id)
+		if !f(fd_MsgAddEditor_id, value) {
+			return
+		}
+	}
+	if x.Editor != "" {
+		value := protoreflect.ValueOfString(x.Editor)
+		if !f(fd_MsgAddEditor_editor, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgAddEditor) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		return x.Creator != ""
+	case "blog.blog.MsgAddEditor.id":
+		return x.Id != uint64(0)
+	case "blog.blog.MsgAddEditor.editor":
+		return x.Editor != ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditor) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		x.Creator = ""
+	case "blog.blog.MsgAddEditor.id":
+		x.Id = uint64(0)
+	case "blog.blog.MsgAddEditor.editor":
+		x.Editor = ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgAddEditor) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		value := x.Creator
+		return protoreflect.ValueOfString(value)
+	case "blog.blog.MsgAddEditor.id":
+		value := x.Id
+		return protoreflect.ValueOfUint64(value)
+	case "blog.blog.MsgAddEditor.editor":
+		value := x.Editor
+		return protoreflect.ValueOfString(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditor) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		x.Creator = value.Interface().(string)
+	case "blog.blog.MsgAddEditor.id":
+		x.Id = value.Uint()
+	case "blog.blog.MsgAddEditor.editor":
+		x.Editor = value.Interface().(string)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditor) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		panic(fmt.Errorf("field creator of message blog.blog.MsgAddEditor is not mutable"))
+	case "blog.blog.MsgAddEditor.id":
+		panic(fmt.Errorf("field id of message blog.blog.MsgAddEditor is not mutable"))
+	case "blog.blog.MsgAddEditor.editor":
+		panic(fmt.Errorf("field editor of message blog.blog.MsgAddEditor is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgAddEditor) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "blog.blog.MsgAddEditor.creator":
+		return protoreflect.ValueOfString("")
+	case "blog.blog.MsgAddEditor.id":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "blog.blog.MsgAddEditor.editor":
+		return protoreflect.ValueOfString("")
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgAddEditor) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in blog.blog.MsgAddEditor", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgAddEditor) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditor) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgAddEditor) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgAddEditor) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgAddEditor)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Creator)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Id != 0 {
+			n += 1 + runtime.Sov(uint64(x.Id))
+		}
+		l = len(x.Editor)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgAddEditor)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Editor) > 0 {
+			i -= len(x.Editor)
+			copy(dAtA[i:], x.Editor)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Editor)))
+			i--
+			dAtA[i] = 0x1a
+		}
+		if x.Id != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
+			i--
+			dAtA[i] = 0x10
+		}
+		if len(x.Creator) > 0 {
+			i -= len(x.Creator)
+			copy(dAtA[i:], x.Creator)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgAddEditor)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAddEditor: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAddEditor: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Creator = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				}
+				x.Id = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Id |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Editor", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Editor = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_MsgAddEditorResponse protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_blog_blog_tx_proto_init()
+	md_MsgAddEditorResponse = File_blog_blog_tx_proto.Messages().ByName("MsgAddEditorResponse")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgAddEditorResponse)(nil)
+
+type fastReflection_MsgAddEditorResponse MsgAddEditorResponse
+
+func (x *MsgAddEditorResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgAddEditorResponse)(x)
+}
+
+func (x *MsgAddEditorResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_blog_blog_tx_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgAddEditorResponse_messageType fastReflection_MsgAddEditorResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgAddEditorResponse_messageType{}
+
+type fastReflection_MsgAddEditorResponse_messageType struct{}
+
+func (x fastReflection_MsgAddEditorResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgAddEditorResponse)(nil)
+}
+func (x fastReflection_MsgAddEditorResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgAddEditorResponse)
+}
+func (x fastReflection_MsgAddEditorResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgAddEditorResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgAddEditorResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgAddEditorResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgAddEditorResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgAddEditorResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgAddEditorResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgAddEditorResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgAddEditorResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgAddEditorResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgAddEditorResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgAddEditorResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditorResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgAddEditorResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditorResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditorResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgAddEditorResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgAddEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgAddEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgAddEditorResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in blog.blog.MsgAddEditorResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgAddEditorResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgAddEditorResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgAddEditorResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgAddEditorResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgAddEditorResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgAddEditorResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgAddEditorResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAddEditorResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgAddEditorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_MsgDeleteEditor         protoreflect.MessageDescriptor
+	fd_MsgDeleteEditor_creator protoreflect.FieldDescriptor
+	fd_MsgDeleteEditor_id      protoreflect.FieldDescriptor
+	fd_MsgDeleteEditor_editor  protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_blog_blog_tx_proto_init()
+	md_MsgDeleteEditor = File_blog_blog_tx_proto.Messages().ByName("MsgDeleteEditor")
+	fd_MsgDeleteEditor_creator = md_MsgDeleteEditor.Fields().ByName("creator")
+	fd_MsgDeleteEditor_id = md_MsgDeleteEditor.Fields().ByName("id")
+	fd_MsgDeleteEditor_editor = md_MsgDeleteEditor.Fields().ByName("editor")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgDeleteEditor)(nil)
+
+type fastReflection_MsgDeleteEditor MsgDeleteEditor
+
+func (x *MsgDeleteEditor) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgDeleteEditor)(x)
+}
+
+func (x *MsgDeleteEditor) slowProtoReflect() protoreflect.Message {
+	mi := &file_blog_blog_tx_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgDeleteEditor_messageType fastReflection_MsgDeleteEditor_messageType
+var _ protoreflect.MessageType = fastReflection_MsgDeleteEditor_messageType{}
+
+type fastReflection_MsgDeleteEditor_messageType struct{}
+
+func (x fastReflection_MsgDeleteEditor_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgDeleteEditor)(nil)
+}
+func (x fastReflection_MsgDeleteEditor_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgDeleteEditor)
+}
+func (x fastReflection_MsgDeleteEditor_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgDeleteEditor
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgDeleteEditor) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgDeleteEditor
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgDeleteEditor) Type() protoreflect.MessageType {
+	return _fastReflection_MsgDeleteEditor_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgDeleteEditor) New() protoreflect.Message {
+	return new(fastReflection_MsgDeleteEditor)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgDeleteEditor) Interface() protoreflect.ProtoMessage {
+	return (*MsgDeleteEditor)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgDeleteEditor) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Creator != "" {
+		value := protoreflect.ValueOfString(x.Creator)
+		if !f(fd_MsgDeleteEditor_creator, value) {
+			return
+		}
+	}
+	if x.Id != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Id)
+		if !f(fd_MsgDeleteEditor_id, value) {
+			return
+		}
+	}
+	if x.Editor != "" {
+		value := protoreflect.ValueOfString(x.Editor)
+		if !f(fd_MsgDeleteEditor_editor, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgDeleteEditor) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		return x.Creator != ""
+	case "blog.blog.MsgDeleteEditor.id":
+		return x.Id != uint64(0)
+	case "blog.blog.MsgDeleteEditor.editor":
+		return x.Editor != ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditor) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		x.Creator = ""
+	case "blog.blog.MsgDeleteEditor.id":
+		x.Id = uint64(0)
+	case "blog.blog.MsgDeleteEditor.editor":
+		x.Editor = ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgDeleteEditor) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		value := x.Creator
+		return protoreflect.ValueOfString(value)
+	case "blog.blog.MsgDeleteEditor.id":
+		value := x.Id
+		return protoreflect.ValueOfUint64(value)
+	case "blog.blog.MsgDeleteEditor.editor":
+		value := x.Editor
+		return protoreflect.ValueOfString(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditor) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		x.Creator = value.Interface().(string)
+	case "blog.blog.MsgDeleteEditor.id":
+		x.Id = value.Uint()
+	case "blog.blog.MsgDeleteEditor.editor":
+		x.Editor = value.Interface().(string)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditor) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		panic(fmt.Errorf("field creator of message blog.blog.MsgDeleteEditor is not mutable"))
+	case "blog.blog.MsgDeleteEditor.id":
+		panic(fmt.Errorf("field id of message blog.blog.MsgDeleteEditor is not mutable"))
+	case "blog.blog.MsgDeleteEditor.editor":
+		panic(fmt.Errorf("field editor of message blog.blog.MsgDeleteEditor is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgDeleteEditor) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "blog.blog.MsgDeleteEditor.creator":
+		return protoreflect.ValueOfString("")
+	case "blog.blog.MsgDeleteEditor.id":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "blog.blog.MsgDeleteEditor.editor":
+		return protoreflect.ValueOfString("")
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditor"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditor does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgDeleteEditor) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in blog.blog.MsgDeleteEditor", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgDeleteEditor) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditor) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgDeleteEditor) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgDeleteEditor) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgDeleteEditor)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Creator)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Id != 0 {
+			n += 1 + runtime.Sov(uint64(x.Id))
+		}
+		l = len(x.Editor)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgDeleteEditor)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Editor) > 0 {
+			i -= len(x.Editor)
+			copy(dAtA[i:], x.Editor)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Editor)))
+			i--
+			dAtA[i] = 0x1a
+		}
+		if x.Id != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
+			i--
+			dAtA[i] = 0x10
+		}
+		if len(x.Creator) > 0 {
+			i -= len(x.Creator)
+			copy(dAtA[i:], x.Creator)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgDeleteEditor)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteEditor: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteEditor: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Creator = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				}
+				x.Id = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Id |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Editor", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Editor = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_MsgDeleteEditorResponse protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_blog_blog_tx_proto_init()
+	md_MsgDeleteEditorResponse = File_blog_blog_tx_proto.Messages().ByName("MsgDeleteEditorResponse")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgDeleteEditorResponse)(nil)
+
+type fastReflection_MsgDeleteEditorResponse MsgDeleteEditorResponse
+
+func (x *MsgDeleteEditorResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgDeleteEditorResponse)(x)
+}
+
+func (x *MsgDeleteEditorResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_blog_blog_tx_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgDeleteEditorResponse_messageType fastReflection_MsgDeleteEditorResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgDeleteEditorResponse_messageType{}
+
+type fastReflection_MsgDeleteEditorResponse_messageType struct{}
+
+func (x fastReflection_MsgDeleteEditorResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgDeleteEditorResponse)(nil)
+}
+func (x fastReflection_MsgDeleteEditorResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgDeleteEditorResponse)
+}
+func (x fastReflection_MsgDeleteEditorResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgDeleteEditorResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgDeleteEditorResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgDeleteEditorResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgDeleteEditorResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgDeleteEditorResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgDeleteEditorResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgDeleteEditorResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgDeleteEditorResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgDeleteEditorResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgDeleteEditorResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgDeleteEditorResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditorResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgDeleteEditorResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditorResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditorResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgDeleteEditorResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.MsgDeleteEditorResponse"))
+		}
+		panic(fmt.Errorf("message blog.blog.MsgDeleteEditorResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgDeleteEditorResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in blog.blog.MsgDeleteEditorResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgDeleteEditorResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgDeleteEditorResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgDeleteEditorResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgDeleteEditorResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgDeleteEditorResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgDeleteEditorResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgDeleteEditorResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteEditorResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteEditorResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -3691,9 +5715,10 @@ type MsgCreatePost struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Title   string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Body    string `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	Creator string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Title   string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Body    string   `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	Editors []string `protobuf:"bytes,4,rep,name=editors,proto3" json:"editors,omitempty"`
 }
 
 func (x *MsgCreatePost) Reset() {
@@ -3737,6 +5762,13 @@ func (x *MsgCreatePost) GetBody() string {
 	return ""
 }
 
+func (x *MsgCreatePost) GetEditors() []string {
+	if x != nil {
+		return x.Editors
+	}
+	return nil
+}
+
 type MsgCreatePostResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3777,10 +5809,11 @@ type MsgUpdatePost struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Title   string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	Body    string `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
-	Id      uint64 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
+	Creator string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Title   string   `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Body    string   `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	Id      uint64   `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
+	Editors []string `protobuf:"bytes,5,rep,name=editors,proto3" json:"editors,omitempty"`
 }
 
 func (x *MsgUpdatePost) Reset() {
@@ -3829,6 +5862,13 @@ func (x *MsgUpdatePost) GetId() uint64 {
 		return x.Id
 	}
 	return 0
+}
+
+func (x *MsgUpdatePost) GetEditors() []string {
+	if x != nil {
+		return x.Editors
+	}
+	return nil
 }
 
 type MsgUpdatePostResponse struct {
@@ -3926,6 +5966,160 @@ func (*MsgDeletePostResponse) Descriptor() ([]byte, []int) {
 	return file_blog_blog_tx_proto_rawDescGZIP(), []int{7}
 }
 
+type MsgAddEditor struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Editor  string `protobuf:"bytes,3,opt,name=editor,proto3" json:"editor,omitempty"`
+}
+
+func (x *MsgAddEditor) Reset() {
+	*x = MsgAddEditor{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_blog_tx_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgAddEditor) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgAddEditor) ProtoMessage() {}
+
+// Deprecated: Use MsgAddEditor.ProtoReflect.Descriptor instead.
+func (*MsgAddEditor) Descriptor() ([]byte, []int) {
+	return file_blog_blog_tx_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *MsgAddEditor) GetCreator() string {
+	if x != nil {
+		return x.Creator
+	}
+	return ""
+}
+
+func (x *MsgAddEditor) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *MsgAddEditor) GetEditor() string {
+	if x != nil {
+		return x.Editor
+	}
+	return ""
+}
+
+type MsgAddEditorResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MsgAddEditorResponse) Reset() {
+	*x = MsgAddEditorResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_blog_tx_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgAddEditorResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgAddEditorResponse) ProtoMessage() {}
+
+// Deprecated: Use MsgAddEditorResponse.ProtoReflect.Descriptor instead.
+func (*MsgAddEditorResponse) Descriptor() ([]byte, []int) {
+	return file_blog_blog_tx_proto_rawDescGZIP(), []int{9}
+}
+
+type MsgDeleteEditor struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Editor  string `protobuf:"bytes,3,opt,name=editor,proto3" json:"editor,omitempty"`
+}
+
+func (x *MsgDeleteEditor) Reset() {
+	*x = MsgDeleteEditor{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_blog_tx_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgDeleteEditor) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgDeleteEditor) ProtoMessage() {}
+
+// Deprecated: Use MsgDeleteEditor.ProtoReflect.Descriptor instead.
+func (*MsgDeleteEditor) Descriptor() ([]byte, []int) {
+	return file_blog_blog_tx_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *MsgDeleteEditor) GetCreator() string {
+	if x != nil {
+		return x.Creator
+	}
+	return ""
+}
+
+func (x *MsgDeleteEditor) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *MsgDeleteEditor) GetEditor() string {
+	if x != nil {
+		return x.Editor
+	}
+	return ""
+}
+
+type MsgDeleteEditorResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MsgDeleteEditorResponse) Reset() {
+	*x = MsgDeleteEditorResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_blog_tx_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgDeleteEditorResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgDeleteEditorResponse) ProtoMessage() {}
+
+// Deprecated: Use MsgDeleteEditorResponse.ProtoReflect.Descriptor instead.
+func (*MsgDeleteEditorResponse) Descriptor() ([]byte, []int) {
+	return file_blog_blog_tx_proto_rawDescGZIP(), []int{11}
+}
+
 var File_blog_blog_tx_proto protoreflect.FileDescriptor
 
 var file_blog_blog_tx_proto_rawDesc = []byte{
@@ -3951,58 +6145,86 @@ var file_blog_blog_tx_proto_rawDesc = []byte{
 	0x78, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
 	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64,
 	0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x61, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f,
+	0x65, 0x22, 0x7b, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f,
 	0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05,
 	0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74,
 	0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65,
-	0x61, 0x74, 0x6f, 0x72, 0x22, 0x27, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x71, 0x0a,
-	0x0d, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18,
-	0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12,
-	0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x62, 0x6f,
-	0x64, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02,
-	0x69, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72,
-	0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73,
-	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x47, 0x0a, 0x0d, 0x4d, 0x73, 0x67,
-	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72,
-	0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65,
-	0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04,
-	0x52, 0x02, 0x69, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x6f, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50,
-	0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xba, 0x02, 0x0a, 0x03,
-	0x4d, 0x73, 0x67, 0x12, 0x4e, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72,
-	0x61, 0x6d, 0x73, 0x12, 0x1a, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e,
-	0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a,
-	0x22, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x48, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73,
-	0x74, 0x12, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73,
-	0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x62, 0x6c,
-	0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x48, 0x0a,
-	0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x2e, 0x62, 0x6c,
-	0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x50, 0x6f, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f,
-	0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x48, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f,
-	0x67, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x1a,
-	0x20, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x44,
-	0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x71, 0x0a, 0x0d, 0x63, 0x6f, 0x6d, 0x2e,
-	0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f,
-	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x12, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x62,
-	0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03, 0x42, 0x42, 0x58, 0xaa, 0x02,
-	0x09, 0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca, 0x02, 0x09, 0x42, 0x6c, 0x6f,
-	0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c,
-	0x6f, 0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02,
-	0x0a, 0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x64, 0x69, 0x74, 0x6f, 0x72,
+	0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x65, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x73,
+	0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x27,
+	0x0a, 0x15, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x8b, 0x01, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f, 0x64,
+	0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x18, 0x0a,
+	0x07, 0x65, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07,
+	0x65, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x73, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x47,
+	0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12,
+	0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07,
+	0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x5e, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x41, 0x64, 0x64, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x64,
+	0x69, 0x74, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x64, 0x69, 0x74,
+	0x6f, 0x72, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72,
+	0x22, 0x16, 0x0a, 0x14, 0x4d, 0x73, 0x67, 0x41, 0x64, 0x64, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x61, 0x0a, 0x0f, 0x4d, 0x73, 0x67, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x12, 0x18, 0x0a, 0x07, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x3a, 0x0c, 0x82,
+	0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x19, 0x0a, 0x17, 0x4d,
+	0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xd1, 0x03, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x4e,
+	0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x1a,
+	0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x22, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x48,
+	0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c,
+	0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x48, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x12, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c,
+	0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74,
+	0x1a, 0x20, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x48, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74,
+	0x12, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67,
+	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x09,
+	0x41, 0x64, 0x64, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x12, 0x17, 0x2e, 0x62, 0x6c, 0x6f, 0x67,
+	0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x41, 0x64, 0x64, 0x45, 0x64, 0x69, 0x74,
+	0x6f, 0x72, 0x1a, 0x1f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d,
+	0x73, 0x67, 0x41, 0x64, 0x64, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x4e, 0x0a, 0x0c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x64, 0x69,
+	0x74, 0x6f, 0x72, 0x12, 0x1a, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e,
+	0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x1a,
+	0x22, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4d, 0x73, 0x67, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x45, 0x64, 0x69, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x71, 0x0a, 0x0d, 0x63, 0x6f,
+	0x6d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x07, 0x54, 0x78, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x12, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03, 0x42, 0x42, 0x58,
+	0xaa, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca, 0x02, 0x09, 0x42,
+	0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15, 0x42, 0x6c, 0x6f, 0x67, 0x5c,
+	0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0xea, 0x02, 0x0a, 0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4017,7 +6239,7 @@ func file_blog_blog_tx_proto_rawDescGZIP() []byte {
 	return file_blog_blog_tx_proto_rawDescData
 }
 
-var file_blog_blog_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_blog_blog_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_blog_blog_tx_proto_goTypes = []interface{}{
 	(*MsgUpdateParams)(nil),         // 0: blog.blog.MsgUpdateParams
 	(*MsgUpdateParamsResponse)(nil), // 1: blog.blog.MsgUpdateParamsResponse
@@ -4027,23 +6249,31 @@ var file_blog_blog_tx_proto_goTypes = []interface{}{
 	(*MsgUpdatePostResponse)(nil),   // 5: blog.blog.MsgUpdatePostResponse
 	(*MsgDeletePost)(nil),           // 6: blog.blog.MsgDeletePost
 	(*MsgDeletePostResponse)(nil),   // 7: blog.blog.MsgDeletePostResponse
-	(*Params)(nil),                  // 8: blog.blog.Params
+	(*MsgAddEditor)(nil),            // 8: blog.blog.MsgAddEditor
+	(*MsgAddEditorResponse)(nil),    // 9: blog.blog.MsgAddEditorResponse
+	(*MsgDeleteEditor)(nil),         // 10: blog.blog.MsgDeleteEditor
+	(*MsgDeleteEditorResponse)(nil), // 11: blog.blog.MsgDeleteEditorResponse
+	(*Params)(nil),                  // 12: blog.blog.Params
 }
 var file_blog_blog_tx_proto_depIdxs = []int32{
-	8, // 0: blog.blog.MsgUpdateParams.params:type_name -> blog.blog.Params
-	0, // 1: blog.blog.Msg.UpdateParams:input_type -> blog.blog.MsgUpdateParams
-	2, // 2: blog.blog.Msg.CreatePost:input_type -> blog.blog.MsgCreatePost
-	4, // 3: blog.blog.Msg.UpdatePost:input_type -> blog.blog.MsgUpdatePost
-	6, // 4: blog.blog.Msg.DeletePost:input_type -> blog.blog.MsgDeletePost
-	1, // 5: blog.blog.Msg.UpdateParams:output_type -> blog.blog.MsgUpdateParamsResponse
-	3, // 6: blog.blog.Msg.CreatePost:output_type -> blog.blog.MsgCreatePostResponse
-	5, // 7: blog.blog.Msg.UpdatePost:output_type -> blog.blog.MsgUpdatePostResponse
-	7, // 8: blog.blog.Msg.DeletePost:output_type -> blog.blog.MsgDeletePostResponse
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	12, // 0: blog.blog.MsgUpdateParams.params:type_name -> blog.blog.Params
+	0,  // 1: blog.blog.Msg.UpdateParams:input_type -> blog.blog.MsgUpdateParams
+	2,  // 2: blog.blog.Msg.CreatePost:input_type -> blog.blog.MsgCreatePost
+	4,  // 3: blog.blog.Msg.UpdatePost:input_type -> blog.blog.MsgUpdatePost
+	6,  // 4: blog.blog.Msg.DeletePost:input_type -> blog.blog.MsgDeletePost
+	8,  // 5: blog.blog.Msg.AddEditor:input_type -> blog.blog.MsgAddEditor
+	10, // 6: blog.blog.Msg.DeleteEditor:input_type -> blog.blog.MsgDeleteEditor
+	1,  // 7: blog.blog.Msg.UpdateParams:output_type -> blog.blog.MsgUpdateParamsResponse
+	3,  // 8: blog.blog.Msg.CreatePost:output_type -> blog.blog.MsgCreatePostResponse
+	5,  // 9: blog.blog.Msg.UpdatePost:output_type -> blog.blog.MsgUpdatePostResponse
+	7,  // 10: blog.blog.Msg.DeletePost:output_type -> blog.blog.MsgDeletePostResponse
+	9,  // 11: blog.blog.Msg.AddEditor:output_type -> blog.blog.MsgAddEditorResponse
+	11, // 12: blog.blog.Msg.DeleteEditor:output_type -> blog.blog.MsgDeleteEditorResponse
+	7,  // [7:13] is the sub-list for method output_type
+	1,  // [1:7] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_blog_blog_tx_proto_init() }
@@ -4149,6 +6379,54 @@ func file_blog_blog_tx_proto_init() {
 				return nil
 			}
 		}
+		file_blog_blog_tx_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgAddEditor); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_blog_tx_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgAddEditorResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_blog_tx_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgDeleteEditor); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_blog_tx_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgDeleteEditorResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -4156,7 +6434,7 @@ func file_blog_blog_tx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_blog_blog_tx_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

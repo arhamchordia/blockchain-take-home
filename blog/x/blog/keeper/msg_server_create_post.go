@@ -23,6 +23,7 @@ func (k msgServer) CreatePost(goCtx context.Context, msg *types.MsgCreatePost) (
 		Body:          msg.Body,
 		CreatedAt:     ctx.BlockHeader().Time,
 		LastUpdatedAt: ctx.BlockHeader().Time,
+		Editors:       []string{msg.Creator},
 	}
 	id := k.AppendPost(
 		ctx,

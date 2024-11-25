@@ -60,6 +60,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a delete-post tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
+				{
+					RpcMethod:      "AddEditor",
+					Use:            "add-editor [id] [editor]",
+					Short:          "Send add editor tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "editor"}},
+				},
+				{
+					RpcMethod:      "DeleteEditor",
+					Use:            "delete-editor [id] [editor]",
+					Short:          "Send delete editor tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "editor"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

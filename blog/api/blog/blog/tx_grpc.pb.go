@@ -23,6 +23,8 @@ const (
 	Msg_CreatePost_FullMethodName   = "/blog.blog.Msg/CreatePost"
 	Msg_UpdatePost_FullMethodName   = "/blog.blog.Msg/UpdatePost"
 	Msg_DeletePost_FullMethodName   = "/blog.blog.Msg/DeletePost"
+	Msg_AddEditor_FullMethodName    = "/blog.blog.Msg/AddEditor"
+	Msg_DeleteEditor_FullMethodName = "/blog.blog.Msg/DeleteEditor"
 )
 
 // MsgClient is the client API for Msg service.
@@ -37,6 +39,8 @@ type MsgClient interface {
 	CreatePost(ctx context.Context, in *MsgCreatePost, opts ...grpc.CallOption) (*MsgCreatePostResponse, error)
 	UpdatePost(ctx context.Context, in *MsgUpdatePost, opts ...grpc.CallOption) (*MsgUpdatePostResponse, error)
 	DeletePost(ctx context.Context, in *MsgDeletePost, opts ...grpc.CallOption) (*MsgDeletePostResponse, error)
+	AddEditor(ctx context.Context, in *MsgAddEditor, opts ...grpc.CallOption) (*MsgAddEditorResponse, error)
+	DeleteEditor(ctx context.Context, in *MsgDeleteEditor, opts ...grpc.CallOption) (*MsgDeleteEditorResponse, error)
 }
 
 type msgClient struct {
@@ -87,6 +91,26 @@ func (c *msgClient) DeletePost(ctx context.Context, in *MsgDeletePost, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) AddEditor(ctx context.Context, in *MsgAddEditor, opts ...grpc.CallOption) (*MsgAddEditorResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MsgAddEditorResponse)
+	err := c.cc.Invoke(ctx, Msg_AddEditor_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteEditor(ctx context.Context, in *MsgDeleteEditor, opts ...grpc.CallOption) (*MsgDeleteEditorResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MsgDeleteEditorResponse)
+	err := c.cc.Invoke(ctx, Msg_DeleteEditor_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility.
@@ -99,6 +123,8 @@ type MsgServer interface {
 	CreatePost(context.Context, *MsgCreatePost) (*MsgCreatePostResponse, error)
 	UpdatePost(context.Context, *MsgUpdatePost) (*MsgUpdatePostResponse, error)
 	DeletePost(context.Context, *MsgDeletePost) (*MsgDeletePostResponse, error)
+	AddEditor(context.Context, *MsgAddEditor) (*MsgAddEditorResponse, error)
+	DeleteEditor(context.Context, *MsgDeleteEditor) (*MsgDeleteEditorResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -120,6 +146,12 @@ func (UnimplementedMsgServer) UpdatePost(context.Context, *MsgUpdatePost) (*MsgU
 }
 func (UnimplementedMsgServer) DeletePost(context.Context, *MsgDeletePost) (*MsgDeletePostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
+}
+func (UnimplementedMsgServer) AddEditor(context.Context, *MsgAddEditor) (*MsgAddEditorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddEditor not implemented")
+}
+func (UnimplementedMsgServer) DeleteEditor(context.Context, *MsgDeleteEditor) (*MsgDeleteEditorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteEditor not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 func (UnimplementedMsgServer) testEmbeddedByValue()             {}
@@ -214,6 +246,42 @@ func _Msg_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_AddEditor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddEditor)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).AddEditor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_AddEditor_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).AddEditor(ctx, req.(*MsgAddEditor))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteEditor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteEditor)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteEditor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_DeleteEditor_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteEditor(ctx, req.(*MsgDeleteEditor))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -236,6 +304,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeletePost",
 			Handler:    _Msg_DeletePost_Handler,
+		},
+		{
+			MethodName: "AddEditor",
+			Handler:    _Msg_AddEditor_Handler,
+		},
+		{
+			MethodName: "DeleteEditor",
+			Handler:    _Msg_DeleteEditor_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

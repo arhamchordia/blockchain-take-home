@@ -15,6 +15,52 @@ import (
 	sync "sync"
 )
 
+var _ protoreflect.List = (*_Post_7_list)(nil)
+
+type _Post_7_list struct {
+	list *[]string
+}
+
+func (x *_Post_7_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_Post_7_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfString((*x.list)[i])
+}
+
+func (x *_Post_7_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_Post_7_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_Post_7_list) AppendMutable() protoreflect.Value {
+	panic(fmt.Errorf("AppendMutable can not be called on message Post at list field Editors as it is not of Message kind"))
+}
+
+func (x *_Post_7_list) Truncate(n int) {
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_Post_7_list) NewElement() protoreflect.Value {
+	v := ""
+	return protoreflect.ValueOfString(v)
+}
+
+func (x *_Post_7_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
 	md_Post                 protoreflect.MessageDescriptor
 	fd_Post_title           protoreflect.FieldDescriptor
@@ -23,6 +69,7 @@ var (
 	fd_Post_id              protoreflect.FieldDescriptor
 	fd_Post_created_at      protoreflect.FieldDescriptor
 	fd_Post_last_updated_at protoreflect.FieldDescriptor
+	fd_Post_editors         protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -34,6 +81,7 @@ func init() {
 	fd_Post_id = md_Post.Fields().ByName("id")
 	fd_Post_created_at = md_Post.Fields().ByName("created_at")
 	fd_Post_last_updated_at = md_Post.Fields().ByName("last_updated_at")
+	fd_Post_editors = md_Post.Fields().ByName("editors")
 }
 
 var _ protoreflect.Message = (*fastReflection_Post)(nil)
@@ -137,6 +185,12 @@ func (x *fastReflection_Post) Range(f func(protoreflect.FieldDescriptor, protore
 			return
 		}
 	}
+	if len(x.Editors) != 0 {
+		value := protoreflect.ValueOfList(&_Post_7_list{list: &x.Editors})
+		if !f(fd_Post_editors, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -164,6 +218,8 @@ func (x *fastReflection_Post) Has(fd protoreflect.FieldDescriptor) bool {
 		return x.CreatedAt != nil
 	case "blog.blog.Post.last_updated_at":
 		return x.LastUpdatedAt != nil
+	case "blog.blog.Post.editors":
+		return len(x.Editors) != 0
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.Post"))
@@ -192,6 +248,8 @@ func (x *fastReflection_Post) Clear(fd protoreflect.FieldDescriptor) {
 		x.CreatedAt = nil
 	case "blog.blog.Post.last_updated_at":
 		x.LastUpdatedAt = nil
+	case "blog.blog.Post.editors":
+		x.Editors = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.Post"))
@@ -226,6 +284,12 @@ func (x *fastReflection_Post) Get(descriptor protoreflect.FieldDescriptor) proto
 	case "blog.blog.Post.last_updated_at":
 		value := x.LastUpdatedAt
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "blog.blog.Post.editors":
+		if len(x.Editors) == 0 {
+			return protoreflect.ValueOfList(&_Post_7_list{})
+		}
+		listValue := &_Post_7_list{list: &x.Editors}
+		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.Post"))
@@ -258,6 +322,10 @@ func (x *fastReflection_Post) Set(fd protoreflect.FieldDescriptor, value protore
 		x.CreatedAt = value.Message().Interface().(*timestamppb.Timestamp)
 	case "blog.blog.Post.last_updated_at":
 		x.LastUpdatedAt = value.Message().Interface().(*timestamppb.Timestamp)
+	case "blog.blog.Post.editors":
+		lv := value.List()
+		clv := lv.(*_Post_7_list)
+		x.Editors = *clv.list
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.Post"))
@@ -288,6 +356,12 @@ func (x *fastReflection_Post) Mutable(fd protoreflect.FieldDescriptor) protorefl
 			x.LastUpdatedAt = new(timestamppb.Timestamp)
 		}
 		return protoreflect.ValueOfMessage(x.LastUpdatedAt.ProtoReflect())
+	case "blog.blog.Post.editors":
+		if x.Editors == nil {
+			x.Editors = []string{}
+		}
+		value := &_Post_7_list{list: &x.Editors}
+		return protoreflect.ValueOfList(value)
 	case "blog.blog.Post.title":
 		panic(fmt.Errorf("field title of message blog.blog.Post is not mutable"))
 	case "blog.blog.Post.body":
@@ -323,6 +397,9 @@ func (x *fastReflection_Post) NewField(fd protoreflect.FieldDescriptor) protoref
 	case "blog.blog.Post.last_updated_at":
 		m := new(timestamppb.Timestamp)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "blog.blog.Post.editors":
+		list := []string{}
+		return protoreflect.ValueOfList(&_Post_7_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.Post"))
@@ -415,6 +492,12 @@ func (x *fastReflection_Post) ProtoMethods() *protoiface.Methods {
 			l = options.Size(x.LastUpdatedAt)
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
+		if len(x.Editors) > 0 {
+			for _, s := range x.Editors {
+				l = len(s)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -443,6 +526,15 @@ func (x *fastReflection_Post) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Editors) > 0 {
+			for iNdEx := len(x.Editors) - 1; iNdEx >= 0; iNdEx-- {
+				i -= len(x.Editors[iNdEx])
+				copy(dAtA[i:], x.Editors[iNdEx])
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Editors[iNdEx])))
+				i--
+				dAtA[i] = 0x3a
+			}
 		}
 		if x.LastUpdatedAt != nil {
 			encoded, err := options.Marshal(x.LastUpdatedAt)
@@ -734,6 +826,38 @@ func (x *fastReflection_Post) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
+			case 7:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Editors", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Editors = append(x.Editors, string(dAtA[iNdEx:postIndex]))
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -793,6 +917,7 @@ type Post struct {
 	Id            uint64                 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	LastUpdatedAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=last_updated_at,json=lastUpdatedAt,proto3" json:"last_updated_at,omitempty"`
+	Editors       []string               `protobuf:"bytes,7,rep,name=editors,proto3" json:"editors,omitempty"`
 }
 
 func (x *Post) Reset() {
@@ -857,6 +982,13 @@ func (x *Post) GetLastUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *Post) GetEditors() []string {
+	if x != nil {
+		return x.Editors
+	}
+	return nil
+}
+
 var File_blog_blog_post_proto protoreflect.FileDescriptor
 
 var file_blog_blog_post_proto_rawDesc = []byte{
@@ -866,7 +998,7 @@ var file_blog_blog_post_proto_rawDesc = []byte{
 	0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
 	0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f,
-	0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xed, 0x01, 0x0a, 0x04,
+	0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x87, 0x02, 0x0a, 0x04,
 	0x50, 0x6f, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f,
 	0x64, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x12, 0x18,
@@ -881,15 +1013,17 @@ var file_blog_blog_post_proto_rawDesc = []byte{
 	0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
 	0x6d, 0x70, 0x42, 0x08, 0xc8, 0xde, 0x1f, 0x00, 0x90, 0xdf, 0x1f, 0x01, 0x52, 0x0d, 0x6c, 0x61,
-	0x73, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x42, 0x73, 0x0a, 0x0d, 0x63,
-	0x6f, 0x6d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x09, 0x50, 0x6f,
-	0x73, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x12, 0x62, 0x6c, 0x6f, 0x67, 0x2f,
-	0x61, 0x70, 0x69, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03,
-	0x42, 0x42, 0x58, 0xaa, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca,
-	0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15, 0x42, 0x6c,
-	0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x0a, 0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x65,
+	0x64, 0x69, 0x74, 0x6f, 0x72, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x65, 0x64,
+	0x69, 0x74, 0x6f, 0x72, 0x73, 0x42, 0x73, 0x0a, 0x0d, 0x63, 0x6f, 0x6d, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x09, 0x50, 0x6f, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x12, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x62, 0x6c,
+	0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03, 0x42, 0x42, 0x58, 0xaa, 0x02, 0x09,
+	0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67,
+	0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f,
+	0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0a,
+	0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (

@@ -23,12 +23,13 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
-	if msg.Creator != val.Creator {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+
+	_, foundEditor := k.checkIfExists(val, msg.Creator)
+	if !foundEditor {
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect editor")
 	}
 
 	// update val details
-	fmt.Println(ctx.BlockHeader().Time)
 	val.LastUpdatedAt = ctx.BlockHeader().Time
 	val.Body = msg.Body
 	val.Title = msg.Title

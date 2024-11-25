@@ -3,6 +3,7 @@ package keeper_test
 import (
 	"context"
 	"fmt"
+	"github.com/cometbft/cometbft/crypto"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -11,6 +12,9 @@ import (
 	"blog/x/blog/keeper"
 	"blog/x/blog/types"
 )
+
+var creator1 sdk.AccAddress = sdk.AccAddress(crypto.AddressHash([]byte("creator")))
+var creator2 sdk.AccAddress = sdk.AccAddress(crypto.AddressHash([]byte("editor")))
 
 func setupMsgServer(t testing.TB) (keeper.Keeper, types.MsgServer, context.Context) {
 	k, ctx := keepertest.BlogKeeper(t)
@@ -28,6 +32,7 @@ func TestMsgCreatePost(t *testing.T) {
 	k, ms, ctx := setupMsgServer(t)
 	wctx := sdk.UnwrapSDKContext(ctx)
 
+	fmt.Println(creator1.String(), creator2.String())
 	fmt.Println(k.GetPostCount(wctx))
 
 	testCases := []struct {
@@ -39,7 +44,7 @@ func TestMsgCreatePost(t *testing.T) {
 		{
 			name: "valid post creation",
 			input: &types.MsgCreatePost{
-				Creator: "cosmos1ly902zr06vgg6kkqhetnvka4rl66qza795xac4",
+				Creator: creator1.String(),
 				Title:   "Test Title",
 				Body:    "This is the body of the post",
 			},
@@ -48,7 +53,7 @@ func TestMsgCreatePost(t *testing.T) {
 		{
 			name: "missing title",
 			input: &types.MsgCreatePost{
-				Creator: "cosmos1ly902zr06vgg6kkqhetnvka4rl66qza795xac4",
+				Creator: creator1.String(),
 				Title:   "",
 				Body:    "This is the body of the post",
 			},
@@ -86,17 +91,19 @@ func TestMsgDeletePost(t *testing.T) {
 
 	post := types.Post{
 		Id:      1,
-		Creator: "cosmos1creator...",
+		Creator: creator1.String(),
 		Title:   "Existing Post 1",
 		Body:    "This is a pre-existing post. 1",
+		Editors: []string{creator1.String()},
 	}
 	k.SetPost(wctx, post)
 
 	post = types.Post{
 		Id:      2,
-		Creator: "cosmos1creator...",
+		Creator: creator1.String(),
 		Title:   "Existing Post 2",
 		Body:    "This is a pre-existing post. 2",
+		Editors: []string{creator1.String()},
 	}
 	k.SetPost(wctx, post)
 
@@ -110,7 +117,7 @@ func TestMsgDeletePost(t *testing.T) {
 			name: "valid post deletion",
 			input: &types.MsgDeletePost{
 				Id:      1,
-				Creator: "cosmos1creator...",
+				Creator: creator1.String(),
 			},
 			expErr: false,
 		},
@@ -118,7 +125,7 @@ func TestMsgDeletePost(t *testing.T) {
 			name: "post not found",
 			input: &types.MsgDeletePost{
 				Id:      999,
-				Creator: "cosmos1creator...",
+				Creator: creator1.String(),
 			},
 			expErr:    true,
 			expErrMsg: "key 999 doesn't exist",
@@ -127,10 +134,10 @@ func TestMsgDeletePost(t *testing.T) {
 			name: "unauthorized deletion",
 			input: &types.MsgDeletePost{
 				Id:      2,
-				Creator: "cosmos1unauthorized...",
+				Creator: creator2.String(),
 			},
 			expErr:    true,
-			expErrMsg: "incorrect owner",
+			expErrMsg: "incorrect editor: unauthorized",
 		},
 	}
 
@@ -157,11 +164,12 @@ func TestMsgUpdatePost(t *testing.T) {
 
 	originalPost := types.Post{
 		Id:            1,
-		Creator:       "cosmos1ly902zr06vgg6kkqhetnvka4rl66qza795xac4",
+		Creator:       creator1.String(),
 		Title:         "Original Title",
 		Body:          "Original Body",
 		CreatedAt:     wctx.BlockHeader().Time,
 		LastUpdatedAt: wctx.BlockHeader().Time,
+		Editors:       []string{creator1.String()},
 	}
 	k.SetPost(wctx, originalPost)
 
@@ -175,7 +183,7 @@ func TestMsgUpdatePost(t *testing.T) {
 			name: "valid update",
 			input: &types.MsgUpdatePost{
 				Id:      1,
-				Creator: "cosmos1ly902zr06vgg6kkqhetnvka4rl66qza795xac4",
+				Creator: creator1.String(),
 				Title:   "Updated Title",
 				Body:    "Updated Body",
 			},
@@ -185,7 +193,7 @@ func TestMsgUpdatePost(t *testing.T) {
 			name: "post not found",
 			input: &types.MsgUpdatePost{
 				Id:      999,
-				Creator: "cosmos1ly902zr06vgg6kkqhetnvka4rl66qza795xac4",
+				Creator: creator1.String(),
 				Title:   "Doesn't Matter",
 				Body:    "Doesn't Matter",
 			},
@@ -196,12 +204,12 @@ func TestMsgUpdatePost(t *testing.T) {
 			name: "unauthorized update",
 			input: &types.MsgUpdatePost{
 				Id:      1,
-				Creator: "cosmos1twuaz9rejs62uj89zexvnvwgj5mh0mntvnmuas",
+				Creator: creator2.String(),
 				Title:   "Hacked Title",
 				Body:    "Hacked Body",
 			},
 			expErr:    true,
-			expErrMsg: "incorrect owner",
+			expErrMsg: "incorrect editor: unauthorized",
 		},
 	}
 
@@ -223,4 +231,89 @@ func TestMsgUpdatePost(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestAddEditor(t *testing.T) {
+	k, ms, ctx := setupMsgServer(t)
+	wctx := sdk.UnwrapSDKContext(ctx)
+
+	// Setup: create a post
+	post := types.Post{
+		Id:      1,
+		Creator: creator1.String(),
+		Title:   "Sample Post",
+		Body:    "Sample Body",
+		Editors: []string{creator1.String()},
+	}
+	k.SetPost(wctx, post)
+
+	// Test: Add a new editor
+	msg := &types.MsgAddEditor{
+		Creator: creator1.String(),
+		Id:      1,
+		Editor:  creator2.String(),
+	}
+	_, err := ms.AddEditor(wctx, msg)
+	require.NoError(t, err, "Adding a valid editor should not return an error")
+
+	// Verify: The editor was added
+	updatedPost, found := k.GetPost(wctx, 1)
+	require.True(t, found, "Post should exist")
+	require.Contains(t, updatedPost.Editors, creator2.String(), "Editor should be added to the post")
+
+	// Test: Add an existing editor
+	msg.Editor = creator2.String()
+	_, err = ms.AddEditor(wctx, msg)
+	require.Error(t, err, "Adding an existing editor should return an error")
+
+	// Test: Unauthorized access
+	msg.Creator = creator2.String()
+	_, err = ms.AddEditor(wctx, msg)
+	require.Error(t, err, "Adding an editor by an unauthorized user should return an error")
+}
+
+func TestDeleteEditor(t *testing.T) {
+	k, ms, ctx := setupMsgServer(t)
+	wctx := sdk.UnwrapSDKContext(ctx)
+
+	// Setup: create a post
+	post := types.Post{
+		Id:      1,
+		Creator: creator1.String(),
+		Title:   "Sample Post",
+		Body:    "Sample Body",
+		Editors: []string{creator1.String(), creator2.String()},
+	}
+	k.SetPost(wctx, post)
+
+	// Test: Delete an existing editor
+	msg := &types.MsgDeleteEditor{
+		Creator: creator1.String(),
+		Id:      1,
+		Editor:  creator2.String(),
+	}
+	_, err := ms.DeleteEditor(wctx, msg)
+	require.NoError(t, err, "Deleting a valid editor should not return an error")
+
+	// Verify: The editor was removed
+	updatedPost, found := k.GetPost(wctx, 1)
+	require.True(t, found, "Post should exist")
+	require.NotContains(t, updatedPost.Editors, creator2.String(), "Editor should be removed from the post")
+
+	// Test: Delete a non-existent editor
+	msg.Editor = creator2.String()
+	_, err = ms.DeleteEditor(wctx, msg)
+	require.EqualError(t, err, "editor does not exist: invalid address")
+
+	// Test: Unauthorized access
+	msg.Creator = creator2.String()
+	msg.Editor = creator2.String()
+	_, err = ms.DeleteEditor(wctx, msg)
+	require.EqualError(t, err, "incorrect owner: unauthorized")
+
+	// Test: Creator cannot be deleted as editor
+	msg.Creator = creator1.String()
+	msg.Editor = creator1.String()
+	_, err = ms.DeleteEditor(wctx, msg)
+	require.EqualError(t, err, "creator cannot be deleted from editors: unauthorized")
 }
