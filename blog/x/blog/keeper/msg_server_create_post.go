@@ -10,10 +10,19 @@ import (
 
 func (k msgServer) CreatePost(goCtx context.Context, msg *types.MsgCreatePost) (*types.MsgCreatePostResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// check message
+	err := msg.ValidateBasic()
+	if err != nil {
+		return nil, err
+	}
+
 	post := types.Post{
-		Creator: msg.Creator,
-		Title:   msg.Title,
-		Body:    msg.Body,
+		Creator:       msg.Creator,
+		Title:         msg.Title,
+		Body:          msg.Body,
+		CreatedAt:     ctx.BlockHeader().Time,
+		LastUpdatedAt: ctx.BlockHeader().Time,
 	}
 	id := k.AppendPost(
 		ctx,

@@ -1,9 +1,8 @@
 package keeper
 
 import (
-	"encoding/binary"
-
 	"cosmossdk.io/store/prefix"
+	"encoding/binary"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -12,11 +11,12 @@ import (
 
 func (k Keeper) AppendPost(ctx sdk.Context, post types.Post) uint64 {
 	count := k.GetPostCount(ctx)
-	post.Id = count
+	post.Id = count + 1
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.PostKey))
 	appendedValue := k.cdc.MustMarshal(&post)
 	store.Set(GetPostIDBytes(post.Id), appendedValue)
+	k.SetPostCount(ctx, post.Id)
 	return count
 }
 
@@ -54,12 +54,13 @@ func (k Keeper) GetPost(ctx sdk.Context, id uint64) (val types.Post, found bool)
 		return val, false
 	}
 	k.cdc.MustUnmarshal(b, &val)
+
 	return val, true
 }
 
 func (k Keeper) SetPost(ctx sdk.Context, post types.Post) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.PoslKey))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.PostKey))
 	b := k.cdc.MustMarshal(&post)
 	store.Set(GetPostIDBytes(post.Id), b)
 }

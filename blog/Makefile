@@ -32,3 +32,7 @@ install:
 
 init:
 	./scripts/init.sh
+
+proto-gen:
+	@echo "Generating Protobuf files"
+	@$(protoImage) sh ./scripts/protocgen.sh

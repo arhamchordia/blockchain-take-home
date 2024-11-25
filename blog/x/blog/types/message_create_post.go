@@ -21,5 +21,10 @@ func (msg *MsgCreatePost) ValidateBasic() error {
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	if len(msg.Title) == 0 {
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "missing title")
+	}
+
 	return nil
 }

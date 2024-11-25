@@ -13,12 +13,12 @@ import (
 
 func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (*types.MsgUpdatePostResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	post := types.Post{
-		Creator: msg.Creator,
-		Id:      msg.Id,
-		Title:   msg.Title,
-		Body:    msg.Body,
+
+	err := msg.ValidateBasic()
+	if err != nil {
+		return nil, err
 	}
+
 	val, found := k.GetPost(ctx, msg.Id)
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
@@ -26,6 +26,13 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 	if msg.Creator != val.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
-	k.SetPost(ctx, post)
+
+	// update val details
+	fmt.Println(ctx.BlockHeader().Time)
+	val.LastUpdatedAt = ctx.BlockHeader().Time
+	val.Body = msg.Body
+	val.Title = msg.Title
+
+	k.SetPost(ctx, val)
 	return &types.MsgUpdatePostResponse{}, nil
 }
