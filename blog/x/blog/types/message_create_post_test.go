@@ -19,12 +19,14 @@ func TestMsgCreatePost_ValidateBasic(t *testing.T) {
 			name: "invalid address",
 			msg: MsgCreatePost{
 				Creator: "invalid_address",
+				Title:   "title",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgCreatePost{
 				Creator: sample.AccAddress(),
+				Title:   "title",
 			},
 		},
 	}

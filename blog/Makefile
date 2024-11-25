@@ -1,5 +1,6 @@
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 COMMIT := $(shell git log -1 --format='%H')
+PACKAGES_UNIT=$(shell go list ./... )
 
 # don't override user values
 ifeq (,$(VERSION))
@@ -33,6 +34,29 @@ install:
 init:
 	./scripts/init.sh
 
+###########
+#  Proto  #
+###########
+
 proto-gen:
 	@echo "Generating Protobuf files"
 	@$(protoImage) sh ./scripts/protocgen.sh
+
+###########
+#   Test  #
+###########
+
+test-unit:
+	@VERSION=$(VERSION) go test -mod=readonly -tags='ledger test_ledger_mock norace' $(PACKAGES_UNIT)
+
+
+script-test: install
+	@echo "Test blog"
+	@$(protoImage) sh ./scripts/test_blog.sh
+
+###########
+#  Lint   #
+###########
+
+lint-format:
+	@go run golangci-lint run ./... --fix

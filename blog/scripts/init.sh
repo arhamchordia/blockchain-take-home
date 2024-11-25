@@ -1,6 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 rm -rf $HOME/.blog
+rm ./scripts/blogd_logs.log
+pkill blogd
+
 BLOGD_BIN=$(which blogd)
 if [ -z "$BLOGD_BIN" ]; then
     GOBIN=$(go env GOPATH)/bin
@@ -23,4 +26,10 @@ $BLOGD_BIN genesis add-genesis-account alice 10000000stake --keyring-backend tes
 $BLOGD_BIN genesis add-genesis-account bob 1000stake --keyring-backend test
 # create default validator
 $BLOGD_BIN genesis gentx alice 1000000stake --chain-id blog
-$BLOGD_BIN genesis collect-gentxs
+($BLOGD_BIN genesis collect-gentxs)
+
+HOME_BLOG=$HOME/.blog
+BINARY=blogd
+
+echo "Starting the chain"
+$BINARY start --minimum-gas-prices=0stake --home $HOME_BLOG > ./scripts/blogd_logs.log 2>&1 &
