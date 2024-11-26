@@ -24,7 +24,7 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 
-	_, foundEditor := k.checkIfExists(val, msg.Creator)
+	foundEditor := k.hasEditor(val, msg.Creator)
 	if !foundEditor {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect editor")
 	}
@@ -33,7 +33,18 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 	val.LastUpdatedAt = ctx.BlockHeader().Time
 	val.Body = msg.Body
 	val.Title = msg.Title
-
 	k.SetPost(ctx, val)
+
+	// Emit event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeUpdatePost,
+			sdk.NewAttribute(types.AttributeKeyPostID, fmt.Sprintf("%d", msg.Id)),
+			sdk.NewAttribute(types.AttributeKeyEditor, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyTitle, msg.Title),
+			sdk.NewAttribute(types.AttributeKeyUpdateTime, val.LastUpdatedAt.String()),
+		),
+	)
+
 	return &types.MsgUpdatePostResponse{}, nil
 }

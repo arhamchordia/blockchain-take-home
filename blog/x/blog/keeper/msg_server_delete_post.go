@@ -11,19 +11,42 @@ import (
 	"blog/x/blog/types"
 )
 
+// DeletePost deletes an existing blog post if the creator has proper authorization
 func (k msgServer) DeletePost(goCtx context.Context, msg *types.MsgDeletePost) (*types.MsgDeletePostResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	val, found := k.GetPost(ctx, msg.Id)
+	// Validate basic message properties
+	if err := msg.ValidateBasic(); err != nil {
+		return nil, err
+	}
+
+	// Get the post
+	post, found := k.GetPost(ctx, msg.Id)
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 
-	_, foundEditor := k.checkIfExists(val, msg.Creator)
-	if !foundEditor {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect editor")
+	// Check authorization
+	if !k.hasEditor(post, msg.Creator) {
+		return nil, errorsmod.Wrapf(
+			sdkerrors.ErrUnauthorized,
+			"address %s is not authorized to delete post %d",
+			msg.Creator,
+			msg.Id,
+		)
 	}
 
+	// Remove the post
 	k.RemovePost(ctx, msg.Id)
+
+	// Emit event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeDeletePost,
+			sdk.NewAttribute(types.AttributeKeyPostID, fmt.Sprintf("%d", msg.Id)),
+			sdk.NewAttribute(types.AttributeKeyDeleter, msg.Creator),
+		),
+	)
+
 	return &types.MsgDeletePostResponse{}, nil
 }

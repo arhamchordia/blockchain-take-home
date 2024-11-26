@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -18,6 +19,15 @@ func (k msgServer) UpdateParams(goCtx context.Context, req *types.MsgUpdateParam
 	if err := k.SetParams(ctx, req.Params); err != nil {
 		return nil, err
 	}
+
+	// Emit event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeUpdateParams,
+			sdk.NewAttribute(types.AttributeKeyAuthority, req.Authority),
+			sdk.NewAttribute(types.AttributeKeyParams, fmt.Sprintf("%+v", req.Params)),
+		),
+	)
 
 	return &types.MsgUpdateParamsResponse{}, nil
 }
