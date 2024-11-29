@@ -54,6 +54,10 @@ script-test: install
 	@echo "Test blog"
 	@$(protoImage) sh ./scripts/test_blog.sh
 
+test-sim-nondeterminism:
+	cd app && go test -mod=readonly -run TestAppStateDeterminism -Enabled=true \
+	  	-NumBlocks=100 -BlockSize=200 -Commit=true -Period=0 -v -timeout 24h
+
 ###########
 #  Lint   #
 ###########

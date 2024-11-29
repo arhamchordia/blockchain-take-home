@@ -23,17 +23,14 @@ var (
 )
 
 const (
-	opWeightMsgCreatePost = "op_weight_msg_create_post"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreatePost int = 100
+	opWeightMsgCreatePost          = "op_weight_msg_create_post"
+	defaultWeightMsgCreatePost int = 50
 
-	opWeightMsgUpdatePost = "op_weight_msg_update_post"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgUpdatePost int = 100
+	opWeightMsgUpdatePost          = "op_weight_msg_update_post"
+	defaultWeightMsgUpdatePost int = 200
 
-	opWeightMsgDeletePost = "op_weight_msg_delete_post"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgDeletePost int = 100
+	opWeightMsgDeletePost          = "op_weight_msg_delete_post"
+	defaultWeightMsgDeletePost int = 200
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -66,7 +63,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreatePost,
-		blogsimulation.SimulateMsgCreatePost(am.accountKeeper, am.bankKeeper, am.keeper),
+		blogsimulation.SimulateMsgCreatePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgUpdatePost int
@@ -77,7 +74,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgUpdatePost,
-		blogsimulation.SimulateMsgUpdatePost(am.accountKeeper, am.bankKeeper, am.keeper),
+		blogsimulation.SimulateMsgUpdatePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgDeletePost int
@@ -88,7 +85,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeletePost,
-		blogsimulation.SimulateMsgDeletePost(am.accountKeeper, am.bankKeeper, am.keeper),
+		blogsimulation.SimulateMsgDeletePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
@@ -103,7 +100,7 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			opWeightMsgCreatePost,
 			defaultWeightMsgCreatePost,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				blogsimulation.SimulateMsgCreatePost(am.accountKeeper, am.bankKeeper, am.keeper)
+				blogsimulation.SimulateMsgCreatePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),
@@ -111,7 +108,7 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			opWeightMsgUpdatePost,
 			defaultWeightMsgUpdatePost,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				blogsimulation.SimulateMsgUpdatePost(am.accountKeeper, am.bankKeeper, am.keeper)
+				blogsimulation.SimulateMsgUpdatePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),
@@ -119,7 +116,7 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			opWeightMsgDeletePost,
 			defaultWeightMsgDeletePost,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				blogsimulation.SimulateMsgDeletePost(am.accountKeeper, am.bankKeeper, am.keeper)
+				blogsimulation.SimulateMsgDeletePost(simState.TxConfig, am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

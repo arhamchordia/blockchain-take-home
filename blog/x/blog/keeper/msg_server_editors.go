@@ -22,7 +22,7 @@ func (k msgServer) AddEditor(goCtx context.Context, msg *types.MsgAddEditor) (*t
 		return nil, err
 	}
 
-	if k.hasEditor(post, msg.Editor) {
+	if k.HasEditor(post, msg.Editor) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "editor already exists")
 	}
 
@@ -59,7 +59,7 @@ func (k msgServer) DeleteEditor(goCtx context.Context, msg *types.MsgDeleteEdito
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "creator cannot be deleted from editors")
 	}
 
-	editorIndex, found := k.findEditorIndex(post, msg.Editor)
+	editorIndex, found := k.FindEditorIndex(post, msg.Editor)
 	if !found {
 		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "editor already exists")
 	}
@@ -94,14 +94,14 @@ func (k msgServer) validatePostAndOwnership(ctx sdk.Context, postID uint64, crea
 	return post, nil
 }
 
-// hasEditor checks if an address is already an editor
-func (k msgServer) hasEditor(post types.Post, address string) bool {
-	_, found := k.findEditorIndex(post, address)
+// HasEditor checks if an address is already an editor
+func (k msgServer) HasEditor(post types.Post, address string) bool {
+	_, found := k.FindEditorIndex(post, address)
 	return found
 }
 
-// findEditorIndex returns the index of an editor in the editors list
-func (k msgServer) findEditorIndex(post types.Post, address string) (int, bool) {
+// FindEditorIndex returns the index of an editor in the editors list
+func (k msgServer) FindEditorIndex(post types.Post, address string) (int, bool) {
 	for i, editor := range post.Editors {
 		if editor == address {
 			return i, true

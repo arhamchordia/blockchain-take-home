@@ -27,7 +27,7 @@ func (k msgServer) DeletePost(goCtx context.Context, msg *types.MsgDeletePost) (
 	}
 
 	// Check authorization
-	if !k.hasEditor(post, msg.Creator) {
+	if !k.HasEditor(post, msg.Creator) {
 		return nil, errorsmod.Wrapf(
 			sdkerrors.ErrUnauthorized,
 			"address %s is not authorized to delete post %d",

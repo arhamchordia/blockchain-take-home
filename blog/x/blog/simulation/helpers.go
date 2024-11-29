@@ -1,6 +1,8 @@
 package simulation
 
 import (
+	"math/rand"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
@@ -12,4 +14,8 @@ func FindAccount(accs []simtypes.Account, address string) (simtypes.Account, boo
 		panic(err)
 	}
 	return simtypes.FindAccount(accs, creator)
+}
+
+func RandRange(min, max int) int {
+	return rand.Intn(max-min) + min
 }

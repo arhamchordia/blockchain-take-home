@@ -24,7 +24,7 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 
-	foundEditor := k.hasEditor(val, msg.Creator)
+	foundEditor := k.HasEditor(val, msg.Creator)
 	if !foundEditor {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect editor")
 	}
